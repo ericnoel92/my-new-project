@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Modal, Button } from 'react-native';
 
 const Square = ({ value, onPress }) => {
   return (
@@ -42,6 +42,8 @@ const Board = ({ squares, onPress }) => {
 const Morpion = () => {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
+  const [winner, setWinner] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const handleClick = (i) => {
     const squaresCopy = [...squares];
@@ -52,25 +54,39 @@ const Morpion = () => {
     setSquares(squaresCopy);
     setXIsNext(!xIsNext);
 
-    if (calculateWinner(squaresCopy)) {
-      // Si un joueur a gagné, réinitialiser les cases du tableau
-      setSquares(Array(9).fill(null));
+    const winner = calculateWinner(squaresCopy);
+    if (winner) {
+      setWinner(winner);
+      setShowModal(true);
+      setSquares(Array(9).fill(null)); // Réinitialiser les cases du tableau
     }
   };
 
-  const winner = calculateWinner(squares);
-  let status;
-  if (winner) {
-    status = 'Winner: ' + winner;
-  } else {
-    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
-  }
+  const resetGame = () => {
+    setShowModal(false);
+    setWinner(null);
+  };
+
+  let status = winner ? `Winner: ${winner}` : `Next player: ${xIsNext ? 'X' : 'O'}`;
 
   return (
-    <ImageBackground source={require('./assets/image/morpion.png')} style={{ flex: 1 }}>
+    <ImageBackground  style={{ flex: 1 }}>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>{status}</Text>
         <Board squares={squares} onPress={handleClick} />
+        <Modal
+          visible={showModal}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => setShowModal(false)}
+        >
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+            <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+              <Text>{`${winner} A GAGNIER :) !`}</Text>
+              <Button title="Jouer encore" onPress={resetGame} />
+            </View>
+          </View>
+        </Modal>
       </View>
     </ImageBackground>
   );
