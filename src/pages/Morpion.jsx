@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, Modal, Button } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Modal, Button, StyleSheet } from 'react-native';
+
+const backgroundImage = require('../../assets/image/morpion.png'); // Chemin de votre image de fond
 
 const Square = ({ value, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={{
-        width: 50,
-        height: 50,
-        borderWidth: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-        <Text>{value}</Text>
+      <View style={styles.square}>
+        <Text style={styles.squareText}>{value}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -19,18 +15,18 @@ const Square = ({ value, onPress }) => {
 
 const Board = ({ squares, onPress }) => {
   return (
-    <View>
-      <View style={{ flexDirection: 'row' }}>
+    <View style={styles.board}>
+      <View style={styles.row}>
         <Square value={squares[0]} onPress={() => onPress(0)} />
         <Square value={squares[1]} onPress={() => onPress(1)} />
         <Square value={squares[2]} onPress={() => onPress(2)} />
       </View>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={styles.row}>
         <Square value={squares[3]} onPress={() => onPress(3)} />
         <Square value={squares[4]} onPress={() => onPress(4)} />
         <Square value={squares[5]} onPress={() => onPress(5)} />
       </View>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={styles.row}>
         <Square value={squares[6]} onPress={() => onPress(6)} />
         <Square value={squares[7]} onPress={() => onPress(7)} />
         <Square value={squares[8]} onPress={() => onPress(8)} />
@@ -58,25 +54,24 @@ const Morpion = () => {
     if (winner) {
       setWinner(winner);
       setShowModal(true);
-      setSquares(Array(9).fill(null)); // Réinitialiser les cases du tableau
     } else if (!squaresCopy.includes(null)) {
-      // S'il n'y a pas de gagnant et que toutes les cases sont remplies, c'est une égalité
       setShowModal(true);
       setWinner('Égalité');
-      setSquares(Array(9).fill(null)); // Réinitialiser les cases du tableau
     }
   };
 
   const resetGame = () => {
     setShowModal(false);
     setWinner(null);
+    setSquares(Array(9).fill(null));
+    setXIsNext(true);
   };
 
   let status = winner ? `Winner: ${winner}` : `Next player: ${xIsNext ? 'X' : 'O'}`;
 
   return (
-    <ImageBackground style={{ flex: 1 }}>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <ImageBackground source={backgroundImage} style={styles.container}>
+      <View style={styles.modalContainer}>
         <Text>{status}</Text>
         <Board squares={squares} onPress={handleClick} />
         <Modal
@@ -85,8 +80,8 @@ const Morpion = () => {
           transparent={true}
           onRequestClose={() => setShowModal(false)}
         >
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-            <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+          <View style={styles.modalView}>
+            <View style={styles.modalContent}>
               <Text>{`${winner === 'Égalité' ? 'Égalité !' : `${winner} A GAGNÉ :) !`}`}</Text>
               <Button title="Jouer encore" onPress={resetGame} />
             </View>
@@ -116,5 +111,48 @@ const calculateWinner = (squares) => {
   }
   return null;
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+  },
+  board: {
+    backgroundColor: 'rgba(255, 255, 255, 0.5)', // Couleur de fond de la grille
+    padding: 10,
+    borderRadius: 10,
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  square: {
+    width: 50,
+    height: 50,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Couleur de fond des carrés
+  },
+  squareText: {
+    fontSize: 20,
+  },
+});
 
 export default Morpion;

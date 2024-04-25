@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Button, Text } from 'react-native';
+import { View, Button, Text, Image  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const HomePage = () => {
@@ -23,6 +23,7 @@ const HomePage = () => {
         title="Jouer au Morpion"
         onPress={goToMorpion}
       />
+      <Image source={require('../../assets/image/morpion.png')} />
     </View>
   );
 };
