@@ -59,6 +59,11 @@ const Morpion = () => {
       setWinner(winner);
       setShowModal(true);
       setSquares(Array(9).fill(null)); // Réinitialiser les cases du tableau
+    } else if (!squaresCopy.includes(null)) {
+      // S'il n'y a pas de gagnant et que toutes les cases sont remplies, c'est une égalité
+      setShowModal(true);
+      setWinner('Égalité');
+      setSquares(Array(9).fill(null)); // Réinitialiser les cases du tableau
     }
   };
 
@@ -70,7 +75,7 @@ const Morpion = () => {
   let status = winner ? `Winner: ${winner}` : `Next player: ${xIsNext ? 'X' : 'O'}`;
 
   return (
-    <ImageBackground  style={{ flex: 1 }}>
+    <ImageBackground style={{ flex: 1 }}>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>{status}</Text>
         <Board squares={squares} onPress={handleClick} />
@@ -82,7 +87,7 @@ const Morpion = () => {
         >
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
             <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
-              <Text>{`${winner} A GAGNIER :) !`}</Text>
+              <Text>{`${winner === 'Égalité' ? 'Égalité !' : `${winner} A GAGNÉ :) !`}`}</Text>
               <Button title="Jouer encore" onPress={resetGame} />
             </View>
           </View>
