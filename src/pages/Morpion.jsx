@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, Modal, Button, StyleSheet } from 'react-native';
+import SoundPlayer from 'react-native-sound-player'; // Importez la bibliothèque SoundPlayer
 
 const backgroundImage = require('../../assets/image/morpion.png'); // Chemin de votre image de fond
 
@@ -35,13 +36,24 @@ const Board = ({ squares, onPress }) => {
   );
 };
 
-const Morpion = () => {
+const Morpion = ({ route }) => {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
   const [winner, setWinner] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const againstComputer = route.params?.againstComputer;
 
-  const handleClick = (i) => {
+  useEffect(() => {
+    // Si c'est au tour de l'ordinateur (O) de jouer
+    if (againstComputer && !xIsNext) {
+      const computerMove = calculateComputerMove(squares);
+      if (computerMove !== null) {
+        handleSquareClick(computerMove);
+      }
+    }
+  }, [squares]);
+
+  const handleSquareClick = (i) => {
     const squaresCopy = [...squares];
     if (calculateWinner(squaresCopy) || squaresCopy[i]) {
       return;
@@ -50,10 +62,23 @@ const Morpion = () => {
     setSquares(squaresCopy);
     setXIsNext(!xIsNext);
 
+    // Jouer le son à chaque coup
+    try {
+      SoundPlayer.playSoundFile('../../assets/Audio/SoundPlayer1.mp3', SoundPlayer.MAIN_BUNDLE); // Remplacez 'bonus-143026 (1).mp3' par le nom de votre fichier audio de coup
+    } catch (e) {
+      console.log(`Impossible de lire le fichier audio`, e);
+    }
+
     const winner = calculateWinner(squaresCopy);
     if (winner) {
       setWinner(winner);
       setShowModal(true);
+      // Jouer le son de victoire si un joueur gagne
+      try {
+        SoundPlayer.playSoundFile('../../assets/Audio/SoundPlayer2.mp3', SoundPlayer.MAIN_BUNDLE); // Remplacez 'bonus-143026 (1).mp3' par le nom de votre fichier audio de victoire
+      } catch (e) {
+        console.log(`Impossible de lire le fichier audio`, e);
+      }
     } else if (!squaresCopy.includes(null)) {
       setShowModal(true);
       setWinner('Égalité');
@@ -73,7 +98,7 @@ const Morpion = () => {
     <ImageBackground source={backgroundImage} style={styles.container}>
       <View style={styles.modalContainer}>
         <Text>{status}</Text>
-        <Board squares={squares} onPress={handleClick} />
+        <Board squares={squares} onPress={handleSquareClick} />
         <Modal
           visible={showModal}
           animationType="slide"
@@ -110,6 +135,19 @@ const calculateWinner = (squares) => {
     }
   }
   return null;
+};
+
+const calculateComputerMove = (squares) => {
+  // Implémentez ici la logique de mouvement de l'ordinateur
+  // Par exemple, vous pouvez choisir une case vide au hasard
+  const emptySquares = squares.reduce((acc, square, index) => {
+    if (square === null) {
+      acc.push(index);
+    }
+    return acc;
+  }, []);
+  const randomIndex = Math.floor(Math.random() * emptySquares.length);
+  return emptySquares[randomIndex];
 };
 
 const styles = StyleSheet.create({
