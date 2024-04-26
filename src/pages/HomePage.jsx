@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Button, Text, Image  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HomePage = () => {
   const navigation = useNavigation();
@@ -23,7 +24,11 @@ const HomePage = () => {
     <View>
       <Text>Comment ça va :)</Text>
       <Text> </Text>
-      <Text>Mes premiers pas sur React Native Bimmmm!!!!!! :) </Text>
+      <Text>Mes premiers pas sur React Native Bimmmm!!!!!!  </Text>
+      <Text>
+        <Icon name="smile-o" size={30} color="#900" />
+      </Text>
+      <Icon name="gamepad" size={30} color="#000" />
       <Button
         title="Jouer au Morpion contre un ami"
         onPress={goToMorpionWithFriend}
