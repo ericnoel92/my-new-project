@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const InscriptionPage = () => {
@@ -10,11 +10,17 @@ const InscriptionPage = () => {
   const navigation = useNavigation();
 
   const handleSubmit = () => {
-    // Ici, vous pouvez ajouter la logique pour envoyer les données à votre API PHP avec Axios
-    console.log('Envoyer les données au serveur:', { nom, prenom, email, motDePasse });
+    // Vérifier si tous les champs sont remplis
+    if (nom && prenom && email && motDePasse) {
+      // Ici, vous pouvez ajouter la logique pour envoyer les données à votre API PHP avec Axios
+      console.log('Envoyer les données au serveur:', { nom, prenom, email, motDePasse });
 
-    // Après avoir envoyé les données avec succès, rediriger vers HomePage
-    navigation.navigate('Connexion');
+      // Après avoir envoyé les données avec succès, rediriger vers ConnexionPage
+      navigation.navigate('Connexion');
+    } else {
+      // Afficher un message d'erreur ou une alerte indiquant que tous les champs doivent être remplis
+      alert('Veuillez remplir tous les champs');
+    }
   };
 
   return (
@@ -46,7 +52,7 @@ const InscriptionPage = () => {
         onChangeText={setMotDePasse}
         secureTextEntry
       />
-      <Button title="S'inscrire" onPress={handleSubmit} />
+      <Button title="S'inscrire" onPress={handleSubmit} disabled={!nom || !prenom || !email || !motDePasse} />
     </View>
   );
 };

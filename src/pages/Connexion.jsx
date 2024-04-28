@@ -8,11 +8,17 @@ const ConnexionPage = () => {
   const navigation = useNavigation();
 
   const handleSubmit = () => {
-    // Ici, vous pouvez ajouter la logique de connexion
-    console.log('Tentative de connexion avec les informations suivantes :', { email, motDePasse });
+    // Vérifier si tous les champs sont remplis
+    if (email && motDePasse) {
+      // Ici, vous pouvez ajouter la logique de connexion
+      console.log('Tentative de connexion avec les informations suivantes :', { email, motDePasse });
 
-    // Après la connexion réussie, rediriger vers la page HomePage
-    navigation.navigate('HomePage');
+      // Après la connexion réussie, rediriger vers la page HomePage
+      navigation.navigate('HomePage');
+    } else {
+      // Afficher un message d'erreur ou une alerte indiquant que tous les champs doivent être remplis
+      alert('Veuillez remplir tous les champs');
+    }
   };
 
   return (
@@ -32,7 +38,7 @@ const ConnexionPage = () => {
         onChangeText={setMotDePasse}
         secureTextEntry
       />
-      <Button title="Se connecter" onPress={handleSubmit} />
+      <Button title="Se connecter" onPress={handleSubmit} disabled={!email || !motDePasse} />
     </View>
   );
 };
