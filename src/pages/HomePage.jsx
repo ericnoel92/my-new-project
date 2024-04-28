@@ -20,6 +20,14 @@ const HomePage = () => {
     navigation.navigate('Morpion', { againstComputer: true });
   };
 
+  const goToInscription = () => {
+    navigation.navigate('Inscription');
+  };
+
+  const goToConnexion = () => {
+    navigation.navigate('Connexion');
+  };
+
   return (
     <View>
       <Text>Comment ça va :)</Text>
@@ -36,6 +44,14 @@ const HomePage = () => {
       <Button
         title="Jouer au Morpion contre le téléphone"
         onPress={goToMorpionWithComputer}
+      />
+      <Button
+        title="Inscription"
+        onPress={goToInscription}
+      />
+      <Button
+        title="Connexion"
+        onPress={goToConnexion}
       />
       <Image source={require('../../assets/image/morpion.png')} />
     </View>
