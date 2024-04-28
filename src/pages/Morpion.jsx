@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, Modal, Button, StyleSheet } from 'react-native';
-import SoundPlayer from 'react-native-sound-player'; // Importez la bibliothèque SoundPlayer
+import SoundPlayer from 'react-native-sound-player';
 
-const backgroundImage = require('../../assets/image/morpion.png'); // Chemin de votre image de fond
+const backgroundImage = require('../../assets/image/morpion.png');
 
 const Square = ({ value, onPress }) => {
   return (
@@ -41,10 +41,11 @@ const Morpion = ({ route }) => {
   const [xIsNext, setXIsNext] = useState(true);
   const [winner, setWinner] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [scores, setScores] = useState({ X: 0, O: 0 });
+
   const againstComputer = route.params?.againstComputer;
 
   useEffect(() => {
-    // Si c'est au tour de l'ordinateur (O) de jouer
     if (againstComputer && !xIsNext) {
       const computerMove = calculateComputerMove(squares);
       if (computerMove !== null) {
@@ -62,20 +63,19 @@ const Morpion = ({ route }) => {
     setSquares(squaresCopy);
     setXIsNext(!xIsNext);
 
-    // Jouer le son à chaque coup
     try {
-      SoundPlayer.playSoundFile('../../assets/Audio/SoundPlayer1.mp3', SoundPlayer.MAIN_BUNDLE); // Remplacez 'bonus-143026 (1).mp3' par le nom de votre fichier audio de coup
+      SoundPlayer.playUrl('../../assets/Audio/SoundPlayer1.mp3', SoundPlayer.MAIN_BUNDLE);
     } catch (e) {
       console.log(`Impossible de lire le fichier audio`, e);
     }
 
     const winner = calculateWinner(squaresCopy);
     if (winner) {
+      updateScores(winner);
       setWinner(winner);
       setShowModal(true);
-      // Jouer le son de victoire si un joueur gagne
       try {
-        SoundPlayer.playSoundFile('../../assets/Audio/SoundPlayer2.mp3', SoundPlayer.MAIN_BUNDLE); // Remplacez 'bonus-143026 (1).mp3' par le nom de votre fichier audio de victoire
+        SoundPlayer.playUrl('../../assets/Audio/SoundPlayer2.mp3', SoundPlayer.MAIN_BUNDLE);
       } catch (e) {
         console.log(`Impossible de lire le fichier audio`, e);
       }
@@ -92,12 +92,22 @@ const Morpion = ({ route }) => {
     setXIsNext(true);
   };
 
+  const updateScores = (winner) => {
+    if (winner === 'X' || winner === 'O') {
+      setScores((prevScores) => ({
+        ...prevScores,
+        [winner]: prevScores[winner] + 1,
+      }));
+    }
+  };
+
   let status = winner ? `Winner: ${winner}` : `Next player: ${xIsNext ? 'X' : 'O'}`;
 
   return (
     <ImageBackground source={backgroundImage} style={styles.container}>
       <View style={styles.modalContainer}>
         <Text>{status}</Text>
+        <Text>Score X: {scores.X} - Score O: {scores.O}</Text>
         <Board squares={squares} onPress={handleSquareClick} />
         <Modal
           visible={showModal}
@@ -138,8 +148,6 @@ const calculateWinner = (squares) => {
 };
 
 const calculateComputerMove = (squares) => {
-  // Implémentez ici la logique de mouvement de l'ordinateur
-  // Par exemple, vous pouvez choisir une case vide au hasard
   const emptySquares = squares.reduce((acc, square, index) => {
     if (square === null) {
       acc.push(index);
@@ -173,7 +181,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   board: {
-    backgroundColor: 'rgba(255, 255, 255, 0.5)', // Couleur de fond de la grille
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
     padding: 10,
     borderRadius: 10,
   },
@@ -186,7 +194,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Couleur de fond des carrés
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
   },
   squareText: {
     fontSize: 20,
