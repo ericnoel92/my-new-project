@@ -64,7 +64,7 @@ const Morpion = ({ route }) => {
     setXIsNext(!xIsNext);
 
     try {
-      SoundPlayer.playUrl('../../assets/Audio/SoundPlayer1.mp3', SoundPlayer.MAIN_BUNDLE);
+      SoundPlayer.playSoundFile('interface-menu-sound-pack-190286', 'mp3');
     } catch (e) {
       console.log(`Impossible de lire le fichier audio`, e);
     }

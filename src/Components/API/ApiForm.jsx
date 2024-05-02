@@ -1,8 +1,8 @@
-axios.post('http://votre-api.com/endpoint-creation-utilisateur', {
-  nom: 'John',
-  prenom: 'Doe',
-  email: 'john.doe@example.com',
-  motDePasse: 'motdepasse123',
+axios.post('http://localhost/phpmyadmin/index.php?route=/sql&pos=0&db=morpion&table=user', {
+  nom: '',
+  prenom: '',
+  email: '',
+  motDePasse: '',
 })
 .then(response => {
   console.log('Réponse de l\'API:', response.data);

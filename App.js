@@ -11,9 +11,9 @@ export default function App() {
   return (
     <NavigationContainer>
 <Stack.Navigator>
+<Stack.Screen name="HomePage" component={HomePage} />
 <Stack.Screen name="Inscription" component={Inscription} />
 <Stack.Screen name="Connexion" component={Connexion} />
-<Stack.Screen name="HomePage" component={HomePage} />
 <Stack.Screen name="Morpion" component={Morpion} />
 </Stack.Navigator>
     </NavigationContainer>

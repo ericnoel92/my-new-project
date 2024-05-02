@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
 const ConnexionPage = () => {
@@ -10,11 +11,21 @@ const ConnexionPage = () => {
   const handleSubmit = () => {
     // Vérifier si tous les champs sont remplis
     if (email && motDePasse) {
-      // Ici, vous pouvez ajouter la logique de connexion
-      console.log('Tentative de connexion avec les informations suivantes :', { email, motDePasse });
-
-      // Après la connexion réussie, rediriger vers la page HomePage
-      navigation.navigate('HomePage');
+      // Connexion à votre API PHP avec Axios
+      axios.post('', {
+        email: email,
+        motDePasse: motDePasse
+      })
+      .then(response => {
+        console.log('Réponse de l\'API:', response.data);
+        // Traiter la réponse de l'API ici
+        // Par exemple, rediriger vers la page d'accueil si la connexion est réussie
+        navigation.navigate('HomePage');
+      })
+      .catch(error => {
+        console.error('Erreur lors de la requête:', error);
+        // Gérer les erreurs si nécessaire
+      });
     } else {
       // Afficher un message d'erreur ou une alerte indiquant que tous les champs doivent être remplis
       alert('Veuillez remplir tous les champs');

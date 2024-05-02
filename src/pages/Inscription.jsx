@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
 const InscriptionPage = () => {
@@ -12,11 +13,23 @@ const InscriptionPage = () => {
   const handleSubmit = () => {
     // Vérifier si tous les champs sont remplis
     if (nom && prenom && email && motDePasse) {
-      // Ici, vous pouvez ajouter la logique pour envoyer les données à votre API PHP avec Axios
-      console.log('Envoyer les données au serveur:', { nom, prenom, email, motDePasse });
-
-      // Après avoir envoyé les données avec succès, rediriger vers ConnexionPage
-      navigation.navigate('Connexion');
+      // Envoyer les données à votre API PHP avec Axios
+      axios.post('', {
+        nom: nom,
+        prenom: prenom,
+        email: email,
+        motDePasse: motDePasse
+      })
+      .then(response => {
+        console.log('Réponse de l\'API:', response.data);
+        // Traiter la réponse de l'API ici
+        // Par exemple, rediriger vers la page de connexion si l'inscription est réussie
+        navigation.navigate('Connexion');
+      })
+      .catch(error => {
+        console.error('Erreur lors de la requête:', error);
+        // Gérer les erreurs si nécessaire
+      });
     } else {
       // Afficher un message d'erreur ou une alerte indiquant que tous les champs doivent être remplis
       alert('Veuillez remplir tous les champs');
