@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, Modal, Button, StyleSheet } from 'react-native';
+import { playSoundFile } from 'react-native-sound-player';
 import SoundPlayer from 'react-native-sound-player';
 
 const backgroundImage = require('../../assets/image/morpion.png');
@@ -64,7 +65,9 @@ const Morpion = ({ route }) => {
     setXIsNext(!xIsNext);
 
     try {
-      SoundPlayer.playSoundFile('interface-menu-sound-pack-190286', 'mp3');
+      
+      playSoundFile('roses-are-red-spoken-202499', 'mp3');
+console.log('ok');
     } catch (e) {
       console.log(`Impossible de lire le fichier audio`, e);
     }
@@ -75,7 +78,7 @@ const Morpion = ({ route }) => {
       setWinner(winner);
       setShowModal(true);
       try {
-        SoundPlayer.playUrl('../../assets/Audio/SoundPlayer2.mp3', SoundPlayer.MAIN_BUNDLE);
+        SoundPlayer.playUrl('https://us-tuna-sounds-files.voicemod.net/2de44b22-62fb-4bc0-885f-3a8af024141b-1694555033213.mp3');
       } catch (e) {
         console.log(`Impossible de lire le fichier audio`, e);
       }

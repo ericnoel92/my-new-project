@@ -15,6 +15,7 @@
     "@react-navigation/stack": "^6.3.29",
     "axios": "^1.6.8",
     "expo": "~50.0.14",
+    "expo-av": "~13.10.6",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-native": "0.73.6",
@@ -25,6 +26,7 @@
     "react-native-screens": "~3.29.0",
     "react-native-sound": "^0.11.2",
     "react-native-sound-player": "^0.13.2",
+    "react-native-track-player": "^4.1.1-nightly-7cb43bba65d8f518d92de76a57e743d652124cb5",
     "react-native-vector-icons": "^10.0.3"
   },
   "devDependencies": {

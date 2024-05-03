@@ -28,6 +28,14 @@ const HomePage = () => {
     navigation.navigate('Connexion');
   };
 
+  const goToJeuxTaupe = () => {
+    navigation.navigate('JeuxTaupe');
+  };
+
+  const goStickMan = () => {
+    navigation.navigate('StickMan');
+  };
+
   return (
     <View>
       <Text>Comment ça va :)</Text>
@@ -52,6 +60,10 @@ const HomePage = () => {
       <Button
         title="Connexion"
         onPress={goToConnexion}
+      />
+      <Button
+        title="Stick Man"
+        onPress={goStickMan}
       />
       <Image source={require('../../assets/image/morpion.png')} />
     </View>
