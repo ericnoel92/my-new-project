@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Button, Text, Image  } from 'react-native';
+import { View, Button, Text, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -28,8 +28,8 @@ const HomePage = () => {
     navigation.navigate('Connexion');
   };
 
-  const goToJeuxTaupe = () => {
-    navigation.navigate('JeuxTaupe');
+  const goToPuissance4 = () => {
+    navigation.navigate('Puissance4');
   };
 
   const goStickMan = () => {
@@ -60,6 +60,10 @@ const HomePage = () => {
       <Button
         title="Connexion"
         onPress={goToConnexion}
+      />
+      <Button
+        title="Puissance 4"
+        onPress={goToPuissance4}
       />
       <Button
         title="Stick Man"

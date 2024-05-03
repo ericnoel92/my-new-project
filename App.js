@@ -6,6 +6,7 @@ import HomePage from './src/pages/HomePage'
 import Inscription from './src/pages/Inscription'
 import Connexion from './src/pages/Connexion'
 import StickMan from './src/pages/StickMan'
+import Puissance4 from './src/pages/Puissance4';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
     <NavigationContainer>
 <Stack.Navigator>
 <Stack.Screen name="HomePage" component={HomePage} />
+<Stack.Screen name="Puissance4" component={Puissance4} />
 <Stack.Screen name="StickMan" component={StickMan} />
 <Stack.Screen name="Inscription" component={Inscription} />
 <Stack.Screen name="Connexion" component={Connexion} />
