@@ -28,14 +28,6 @@ const HomePage = () => {
     navigation.navigate('Connexion');
   };
 
-  const goToPuissance4 = () => {
-    navigation.navigate('Puissance4');
-  };
-
-  const goStickMan = () => {
-    navigation.navigate('StickMan');
-  };
-
   return (
     <View>
       <Text>Comment ça va :)</Text>
@@ -60,14 +52,6 @@ const HomePage = () => {
       <Button
         title="Connexion"
         onPress={goToConnexion}
-      />
-      <Button
-        title="Puissance 4"
-        onPress={goToPuissance4}
-      />
-      <Button
-        title="Stick Man"
-        onPress={goStickMan}
       />
       <Image source={require('../../assets/image/morpion.png')} />
     </View>

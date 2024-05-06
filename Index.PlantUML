@@ -1,28 +1,31 @@
-@startuml eric
-actor Utilisateur as User
-participant Morpion as Morp
-participant Square as Sq
-participant Board as Bd
+@startuml eric 
 
-activate User
-User -> Morp : Clic sur une case
-activate Morp
-Morp -> Bd : Récupérer l'état du plateau
-activate Bd
-Bd --> Morp : État actuel du plateau
-deactivate Bd
-Morp -> Sq : Mettre à jour la case cliquée
-activate Sq
-Sq --> Morp : Case mise à jour
-deactivate Sq
-Morp -> Morp : Vérifier le gagnant
-alt Gagnant trouvé
-Morp -> Morp : Mettre à jour le score
-Morp -> Morp : Afficher le message de victoire
-else Pas de gagnant
-Morp -> Morp : Passer au joueur suivant
-end
-Morp -> User : Afficher le résultat
-deactivate Morp
-deactivate User
+actor Utilisateur as U
+participant HomePage as HP
+participant Navigation as N
+
+U -> HP: Accéder à la page d'accueil
+activate HP
+HP --> U: Afficher la page d'accueil
+
+U -> HP: Appuyer sur "Jouer au Morpion contre un ami"
+activate N
+HP --> N: Naviguer vers Morpion avec ami
+deactivate N
+
+U -> HP: Appuyer sur "Jouer au Morpion contre le téléphone"
+activate N
+HP --> N: Naviguer vers Morpion avec téléphone
+deactivate N
+
+U -> HP: Appuyer sur "Inscription"
+activate N
+HP --> N: Naviguer vers Inscription
+deactivate N
+
+U -> HP: Appuyer sur "Connexion"
+activate N
+HP --> N: Naviguer vers Connexion
+deactivate N
+
 @enduml
