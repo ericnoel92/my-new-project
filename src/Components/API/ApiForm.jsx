@@ -1,8 +1,8 @@
-axios.post('http://localhost/phpmyadmin/index.php?route=/sql&pos=0&db=morpion&table=user', {
-  nom: '',
-  prenom: '',
-  email: '',
-  motDePasse: '',
+axios.post('http://localhost/api/insert-user', {
+  nom: 'valeur_de_nom',
+  prenom: 'valeur_de_prenom',
+  email: 'valeur_de_email',
+  motDePasse: 'valeur_de_motDePasse',
 })
 .then(response => {
   console.log('Réponse de l\'API:', response.data);

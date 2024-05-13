@@ -1,3 +1,4 @@
+// InscriptionPage.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import axios from 'axios';
@@ -14,7 +15,7 @@ const InscriptionPage = () => {
     // Vérifier si tous les champs sont remplis
     if (nom && prenom && email && motDePasse) {
       // Envoyer les données à votre API PHP avec Axios
-      axios.post('', {
+      axios.post('http://localhost:127.0.0.1/api/morpion/insert', {
         nom: nom,
         prenom: prenom,
         email: email,

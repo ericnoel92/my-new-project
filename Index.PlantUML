@@ -1,31 +1,13 @@
-@startuml eric 
+@startuml eric
+actor Joueur
+participant "Application Morpion" as App
 
-actor Utilisateur as U
-participant HomePage as HP
-participant Navigation as N
-
-U -> HP: Accéder à la page d'accueil
-activate HP
-HP --> U: Afficher la page d'accueil
-
-U -> HP: Appuyer sur "Jouer au Morpion contre un ami"
-activate N
-HP --> N: Naviguer vers Morpion avec ami
-deactivate N
-
-U -> HP: Appuyer sur "Jouer au Morpion contre le téléphone"
-activate N
-HP --> N: Naviguer vers Morpion avec téléphone
-deactivate N
-
-U -> HP: Appuyer sur "Inscription"
-activate N
-HP --> N: Naviguer vers Inscription
-deactivate N
-
-U -> HP: Appuyer sur "Connexion"
-activate N
-HP --> N: Naviguer vers Connexion
-deactivate N
-
+Joueur -> App: Appuyer sur "Nouvelle Partie"
+activate App
+App --> Joueur: Afficher l'écran de jeu
+Joueur -> App: Effectuer un mouvement (cliquer sur une case)
+App -> App: Vérifier le mouvement et mettre à jour le tableau
+App -> App: Vérifier les conditions de victoire
+App --> Joueur: Afficher le résultat de la partie (victoire, égalité ou continuer)
+deactivate App
 @enduml

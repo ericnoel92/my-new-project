@@ -1,3 +1,4 @@
+// ConnexionPage.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import axios from 'axios';
@@ -12,7 +13,7 @@ const ConnexionPage = () => {
     // Vérifier si tous les champs sont remplis
     if (email && motDePasse) {
       // Connexion à votre API PHP avec Axios
-      axios.post('', {
+      axios.post('https://votre-url-de-backend-lumen/connexion', {
         email: email,
         motDePasse: motDePasse
       })
