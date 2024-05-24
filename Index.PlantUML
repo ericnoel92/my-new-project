@@ -1,13 +1,57 @@
 @startuml eric
-actor Joueur
-participant "Application Morpion" as App
+entity Patient {
+  + ID_patient (PK)
+  --
+  nom: string
+  prenom: string
+  // Autres attributs
+}
 
-Joueur -> App: Appuyer sur "Nouvelle Partie"
-activate App
-App --> Joueur: Afficher l'écran de jeu
-Joueur -> App: Effectuer un mouvement (cliquer sur une case)
-App -> App: Vérifier le mouvement et mettre à jour le tableau
-App -> App: Vérifier les conditions de victoire
-App --> Joueur: Afficher le résultat de la partie (victoire, égalité ou continuer)
-deactivate App
+entity Medecin {
+  + ID_medecin (PK)
+  --
+  nom: string
+  prenom: string
+  specialite: string
+  // Autres attributs
+}
+
+entity Consultation {
+  + ID_consultation (PK)
+  --
+  date: date
+  heure: string
+  // Clés étrangères
+  Patient_ID_patient (FK)
+  Medecin_ID_medecin (FK)
+}
+
+entity Prescription {
+  + ID_prescription (PK)
+  // Clés étrangères
+  Consultation_ID_consultation (FK)
+  Medicament_ID_medicament (FK)
+}
+
+entity Medicament {
+  + ID_medicament (PK)
+  --
+  nom: string
+  dosage: string
+  // Autres attributs
+}
+
+entity Service {
+  + ID_service (PK)
+  --
+  nom: string
+  responsable: string
+  // Autres attributs
+}
+
+Patient ||--o{ Consultation
+Medecin ||--o{ Consultation
+Consultation ||--{ Prescription
+Prescription }--|| Medicament
+Medecin ||--|{ Service
 @enduml

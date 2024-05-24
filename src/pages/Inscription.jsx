@@ -8,18 +8,18 @@ const InscriptionPage = () => {
   const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
   const [email, setEmail] = useState('');
-  const [motDePasse, setMotDePasse] = useState('');
+  const [mot_de_passe, setMotDePasse] = useState('');
   const navigation = useNavigation();
 
   const handleSubmit = () => {
     // Vérifier si tous les champs sont remplis
-    if (nom && prenom && email && motDePasse) {
+    if (nom && prenom && email && mot_de_passe) {
       // Envoyer les données à votre API PHP avec Axios
-      axios.post('http://localhost:127.0.0.1/api/morpion/insert', {
+      axios.post('http://localhost:8000/inscription', {
         nom: nom,
         prenom: prenom,
         email: email,
-        motDePasse: motDePasse
+        mot_de_passe: mot_de_passe
       })
       .then(response => {
         console.log('Réponse de l\'API:', response.data);
@@ -62,11 +62,11 @@ const InscriptionPage = () => {
       <TextInput
         style={styles.input}
         placeholder="Mot de passe"
-        value={motDePasse}
+        value={mot_de_passe}
         onChangeText={setMotDePasse}
         secureTextEntry
       />
-      <Button title="S'inscrire" onPress={handleSubmit} disabled={!nom || !prenom || !email || !motDePasse} />
+      <Button title="S'inscrire" onPress={handleSubmit} disabled={!nom || !prenom || !email || !mot_de_passe} />
     </View>
   );
 };

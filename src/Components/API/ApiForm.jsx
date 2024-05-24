@@ -1,8 +1,8 @@
-axios.post('http://localhost/api/insert-user', {
+axios.post('http://localhost:8000/connexion', {
   nom: 'valeur_de_nom',
   prenom: 'valeur_de_prenom',
   email: 'valeur_de_email',
-  motDePasse: 'valeur_de_motDePasse',
+  motDePasse: 'valeur_de_mot_de_passe',
 })
 .then(response => {
   console.log('Réponse de l\'API:', response.data);

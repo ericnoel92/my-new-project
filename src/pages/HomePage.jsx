@@ -28,11 +28,17 @@ const HomePage = () => {
     navigation.navigate('Connexion');
   };
 
+  const goToProfil = () => {
+    navigation.navigate('Profil');
+  };
+const goToBasket = () => {
+  navigation.navigate('Basket');
+}
   return (
     <View>
       <Text>Comment ça va :)</Text>
       <Text> </Text>
-      <Text>Mes premiers pas sur React Native Bimmmm!!!!!!  </Text>
+      <Text> </Text>
       <Text>
         <Icon name="smile-o" size={30} color="#900" />
       </Text>
@@ -52,6 +58,14 @@ const HomePage = () => {
       <Button
         title="Connexion"
         onPress={goToConnexion}
+      />
+      <Button
+        title="Profil"
+        onPress={goToProfil}
+      />
+      <Button
+        title="Basket"
+        onPress={goToBasket}
       />
       <Image source={require('../../assets/image/morpion.png')} />
     </View>
